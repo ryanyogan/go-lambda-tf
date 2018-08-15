@@ -3,6 +3,7 @@ language: go
 before_script:
   - go vet ./terraform/lambda-apigateway/...
   - env GOOS=linux ARCH=amd64 go build ./terraform/lambda-apigateway/lambda/lambda.go
+  - zip ./lambda lambda
 
 deploy:
   provider: s3
@@ -11,4 +12,4 @@ deploy:
   bucket: ryanyogan-s3-lambda
   skip_cleanup: true
   region: us-east-1
-  local_dir: ./terraform/lambda-apigateway/lambda/
+  local_dir: "./lambda.zip"
